@@ -10,6 +10,8 @@ import { FinanceCard } from "@/components/FinanceCard";
 import { VarietyCard } from "@/components/VarietyCard";
 import { RiskTable, Bug, Droplets as DropletsIcon, Lock, TrendingDown, Wallet } from "@/components/RiskTable";
 import { ProjectInfo } from "@/components/ProjectInfo";
+import { BudgetCalculator } from "@/components/BudgetCalculator";
+import { Calculator } from "lucide-react";
 import {
   Sprout,
   Calendar,
@@ -105,7 +107,7 @@ const projectRisks = [
 const Index = () => {
   const [tasks, setTasks] = useState(projectTasks);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<"dashboard" | "finances" | "varieties">("dashboard");
+  const [activeTab, setActiveTab] = useState<"dashboard" | "finances" | "varieties" | "calculator">("dashboard");
 
   const handleToggleTask = (id: string) => {
     setTasks(tasks.map(task =>
@@ -238,6 +240,15 @@ const Index = () => {
           >
             <Leaf className="w-4 h-4 mr-2" />
             Variétés & Risques
+          </Button>
+          <Button
+            variant={activeTab === "calculator" ? "gradient" : "outline"}
+            size="sm"
+            onClick={() => setActiveTab("calculator")}
+            className="shrink-0"
+          >
+            <Calculator className="w-4 h-4 mr-2" />
+            Calculateur
           </Button>
         </div>
 
@@ -415,6 +426,12 @@ const Index = () => {
             <div className="space-y-6">
               <RiskTable risks={projectRisks} />
             </div>
+          </div>
+        )}
+
+        {activeTab === "calculator" && (
+          <div className="max-w-3xl mx-auto">
+            <BudgetCalculator />
           </div>
         )}
       </main>
